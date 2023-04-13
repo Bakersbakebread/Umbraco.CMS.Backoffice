@@ -221,12 +221,17 @@ export const data: Array<(DataTypeResponseModel & { type: 'data-type' }) | Folde
 		values: [
 			{
 				alias: 'format',
-				value: 'YYYY-MM-DD',
+				value: 'YYYY-MM-DDTHH:mm',
 			},
 			{
 				alias: 'offsetTime',
 				value: true,
 			},
+			{
+				alias: 'enableTimezones',
+				value: true,
+			},
+			{},
 		],
 	},
 	{
@@ -569,7 +574,12 @@ export const data: Array<(DataTypeResponseModel & { type: 'data-type' }) | Folde
 		parentId: null,
 		propertyEditorAlias: 'Umbraco.Decimal',
 		propertyEditorUiAlias: 'Umb.PropertyEditorUI.Decimal',
-		values: [],
+		values: [
+			{
+				alias: 'step',
+				value: 0.01,
+			},
+		],
 	},
 	{
 		$type: 'data-type',
