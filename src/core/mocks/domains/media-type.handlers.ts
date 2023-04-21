@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { umbMediaTypeData } from '../data/media-type.data';
 
 // TODO: add schema

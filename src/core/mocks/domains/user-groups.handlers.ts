@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { umbUserGroupsData } from '../data/user-groups.data';
 import type { UserGroupDetails } from '@umbraco-cms/backoffice/models';
 

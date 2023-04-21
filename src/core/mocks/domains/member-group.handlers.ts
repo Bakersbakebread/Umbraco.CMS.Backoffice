@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { umbMemberGroupData } from '../data/member-group.data';
 
 // TODO: add schema

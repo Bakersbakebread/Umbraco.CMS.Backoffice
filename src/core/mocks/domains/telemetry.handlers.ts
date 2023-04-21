@@ -1,7 +1,11 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 
 import { umbracoPath } from '@umbraco-cms/backoffice/utils';
-import { PagedTelemetryResponseModel, TelemetryResponseModel, TelemetryLevelModel } from '@umbraco-cms/backoffice/backend-api';
+import {
+	PagedTelemetryResponseModel,
+	TelemetryResponseModel,
+	TelemetryLevelModel,
+} from '@umbraco-cms/backoffice/backend-api';
 
 let telemetryLevel = TelemetryLevelModel.BASIC;
 

@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { umbLogViewerData } from '../data/log-viewer.data';
 import { umbracoPath } from '@umbraco-cms/backoffice/utils';
 import { SavedLogSearchRequestModel } from '@umbraco-cms/backoffice/backend-api';

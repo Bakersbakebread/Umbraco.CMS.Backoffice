@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { umbDataTypeData } from '../../data/data-type.data';
 import { slug } from './slug';
 import { umbracoPath } from '@umbraco-cms/backoffice/utils';

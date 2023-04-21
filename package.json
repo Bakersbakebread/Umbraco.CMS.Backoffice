@@ -27,6 +27,7 @@
 	},
 	"scripts": {
 		"dev": "vite",
+		"dev2": "web-dev-server",
 		"build": "tsc && vite build --mode staging",
 		"build:libs": "npm run wc-analyze && npm run wc-analyze:vscode && npm run generate:jsonschema && rollup -c rollup-libs.config.js && node utils/move-libs.js",
 		"build:for:static": "tsc && vite build",
@@ -91,6 +92,7 @@
 		"@types/uuid": "^9.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.50.0",
 		"@typescript-eslint/parser": "^5.57.0",
+		"@web/dev-server": "^0.1.38",
 		"@web/dev-server-esbuild": "^0.3.3",
 		"@web/dev-server-import-maps": "^0.0.7",
 		"@web/dev-server-rollup": "^0.3.21",
@@ -125,7 +127,8 @@
 		"vite": "^4.2.1",
 		"vite-plugin-static-copy": "^0.13.0",
 		"vite-tsconfig-paths": "^4.0.5",
-		"web-component-analyzer": "^2.0.0-next.4"
+		"web-component-analyzer": "^2.0.0-next.4",
+		"@bundled-es-modules/msw": "^1.0.0"
 	},
 	"msw": {
 		"workerDirectory": "public"

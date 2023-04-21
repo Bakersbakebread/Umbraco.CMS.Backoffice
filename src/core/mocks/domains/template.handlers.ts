@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { umbTemplateData } from '../data/template.data';
 import { umbracoPath } from '@umbraco-cms/backoffice/utils';
 import { TemplateModelBaseModel } from '@umbraco-cms/backoffice/backend-api';

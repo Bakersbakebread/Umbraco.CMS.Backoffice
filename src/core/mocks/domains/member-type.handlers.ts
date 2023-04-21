@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { umbMemberTypeData } from '../data/member-type.data';
 
 // TODO: add schema

@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { v4 as uuidv4 } from 'uuid';
 import { umbUsersData } from '../data/users.data';
 import type { UserDetails } from '@umbraco-cms/backoffice/models';

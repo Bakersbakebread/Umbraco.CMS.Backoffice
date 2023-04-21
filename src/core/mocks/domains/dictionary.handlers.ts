@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { umbDictionaryData } from '../data/dictionary.data';
 import {
 	ImportDictionaryRequestModel,

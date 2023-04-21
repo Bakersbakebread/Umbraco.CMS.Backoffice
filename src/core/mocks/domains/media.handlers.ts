@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { umbMediaData } from '../data/media.data';
 import type { MediaDetails } from '../../../backoffice/media/media';
 

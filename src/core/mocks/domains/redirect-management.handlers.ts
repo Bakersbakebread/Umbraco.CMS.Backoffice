@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { umbracoPath } from '@umbraco-cms/backoffice/utils';
 import {
 	PagedRedirectUrlResponseModel,

@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from '@bundled-es-modules/msw';
 import { umbRelationTypeData } from '../data/relation-type.data';
 import { umbracoPath } from '@umbraco-cms/backoffice/utils';
 

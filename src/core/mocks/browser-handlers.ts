@@ -63,6 +63,7 @@ const handlers = [
 	...stylesheetHandlers,
 ];
 
+/*
 switch (import.meta.env.VITE_UMBRACO_INSTALL_STATUS) {
 	case 'must-install':
 		handlers.push(serverHandlers.serverMustInstallHandler);
@@ -82,5 +83,9 @@ switch (import.meta.env.VITE_UMBRACO_EXTENSION_MOCKS) {
 	default:
 		handlers.push(manifestsHandlers.manifestEmptyHandler);
 }
+*/
+
+handlers.push(serverHandlers.serverRunningHandler);
+handlers.push(manifestsHandlers.manifestEmptyHandler);
 
 export { handlers };
