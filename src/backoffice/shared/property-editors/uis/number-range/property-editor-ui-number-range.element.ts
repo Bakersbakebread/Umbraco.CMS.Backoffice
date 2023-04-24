@@ -1,10 +1,10 @@
 import { html } from 'lit';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { customElement, property, state } from 'lit/decorators.js';
-import type { UmbInputNumberRangeElement } from '../../../../shared/components/input-number-range/input-number-range.element';
+import type { UmbNumberRangeInputElement } from '../../../components/number-range-input/number-range-input.element';
 import { UmbPropertyEditorElement } from '@umbraco-cms/backoffice/property-editor';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
-import '../../../../shared/components/input-number-range/input-number-range.element';
+import '../../../components/number-range-input/number-range-input.element';
 
 type ValueType = {
 	min?: number;
@@ -34,8 +34,8 @@ export class UmbPropertyEditorUINumberRangeElement extends UmbLitElement impleme
 
 	private _onChange(event: CustomEvent) {
 		this.value = {
-			min: (event.target as UmbInputNumberRangeElement).minValue,
-			max: (event.target as UmbInputNumberRangeElement).maxValue,
+			min: (event.target as UmbNumberRangeInputElement).minValue,
+			max: (event.target as UmbNumberRangeInputElement).maxValue,
 		};
 		this.dispatchEvent(new CustomEvent('property-value-change'));
 	}
@@ -46,10 +46,10 @@ export class UmbPropertyEditorUINumberRangeElement extends UmbLitElement impleme
 	_maxValue?: number;
 
 	render() {
-		return html`<umb-input-number-range
+		return html`<umb-number-range-input
 			.minValue=${this._minValue}
 			.maxValue=${this._maxValue}
-			@change=${this._onChange}></umb-input-number-range>`;
+			@change=${this._onChange}></umb-number-range-input>`;
 	}
 }
 

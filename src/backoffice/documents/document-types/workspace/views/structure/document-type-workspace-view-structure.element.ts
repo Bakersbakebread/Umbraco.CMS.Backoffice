@@ -56,7 +56,7 @@ export class UmbDocumentTypeWorkspaceViewStructureElement extends UmbLitElement 
 					</div>
 					<div slot="editor">
 						<!-- TODO: maybe we want to somehow display the hierarchy, but not necessary in the same way as old backoffice? -->
-						<umb-input-document-type-picker></umb-input-document-type-picker>
+						<umb-document-type-input></umb-document-type-input>
 					</div>
 				</umb-workspace-property-layout>
 			</uui-box>

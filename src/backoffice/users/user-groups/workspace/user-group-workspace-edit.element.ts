@@ -8,7 +8,7 @@ import { UmbUserGroupWorkspaceContext } from './user-group-workspace.context';
 import type { UserGroupDetails } from '@umbraco-cms/backoffice/models';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 
-import '../../../shared/components/input-user/input-user.element';
+import '../../../shared/components/user-input/user-input.element';
 import '../../../shared/components/input-section/input-section.element';
 import { UMB_ENTITY_WORKSPACE_CONTEXT } from '@umbraco-cms/backoffice/context-api';
 
@@ -331,9 +331,9 @@ export class UmbUserGroupWorkspaceEditElement extends UmbLitElement {
 	private renderRightColumn() {
 		return html`<uui-box>
 			<div slot="headline">Users</div>
-			<umb-input-user
+			<umb-user-input
 				@change=${(e: Event) => this._updateUserKeys((e.target as any).value)}
-				.value=${this._userKeys || []}></umb-input-user>
+				.value=${this._userKeys || []}></umb-user-input>
 		</uui-box>`;
 	}
 

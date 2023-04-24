@@ -6,7 +6,7 @@ import { UmbUserWorkspaceEditElement } from './user-workspace-edit.element';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 import type { IRoute } from '@umbraco-cms/backoffice/router';
 
-import '../../../shared/components/input-user-group/input-user-group.element';
+import '../../../shared/components/user-group-input/user-group-input.element';
 import '../../../shared/property-editors/uis/document-picker/property-editor-ui-document-picker.element';
 import '../../../shared/components/workspace/workspace-layout/workspace-layout.element';
 

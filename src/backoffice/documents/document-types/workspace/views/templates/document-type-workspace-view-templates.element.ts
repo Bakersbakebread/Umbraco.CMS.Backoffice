@@ -64,11 +64,11 @@ export class UmbDocumentTypeWorkspaceViewTemplatesElement extends UmbLitElement 
 			<umb-workspace-property-layout alias="Templates" label="Allowed Templates">
 				<div slot="description">Choose which templates editors are allowed to use on content of this type</div>
 				<div id="templates" slot="editor">
-					<umb-input-template-picker
+					<umb-template-input
 						.defaultKey="${/*this._documentType?.defaultTemplateId ??*/ ''}"
 						.allowedKeys="${/*this._documentType?.allowedTemplateIds ??*/ []}"
 						@change-default="${this.#changeDefaultId}"
-						@change-allowed="${this.#changeAllowedKeys}"></umb-input-template-picker>
+						@change-allowed="${this.#changeAllowedKeys}"></umb-template-input>
 				</div>
 			</umb-workspace-property-layout>
 		</uui-box>`;

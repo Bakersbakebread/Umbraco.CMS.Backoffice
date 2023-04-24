@@ -95,10 +95,10 @@ export class UmbPropertyEditorUIDatePickerElement extends UmbLitElement implemen
 		return html`<umb-date-input
 			.type=${this._inputType}
 			@input=${this._onInput}
-			.datetime=${this._valueString}
 			.min=${this._min}
 			.max=${this._max}
 			.step=${this._step}
+			.value="${this._value}"
 			.offsetTime=${this._offsetTime}
 			label="Pick a date or time"></umb-date-input>`;
 	}

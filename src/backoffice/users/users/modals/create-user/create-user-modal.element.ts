@@ -2,7 +2,7 @@ import { css, html, nothing } from 'lit';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { customElement, query, state } from 'lit/decorators.js';
 import { UUIInputPasswordElement } from '@umbraco-ui/uui';
-import { UmbInputPickerUserGroupElement } from '../../../../shared/components/input-user-group/input-user-group.element';
+import { UmbUserGroupInputElement } from '../../../../shared/components/user-group-input/user-group-input.element';
 import { UmbUserStore, UMB_USER_STORE_CONTEXT_TOKEN } from '../../repository/user.store';
 import { UmbModalBaseElement } from '@umbraco-cms/internal/modal';
 import type { UserDetails } from '@umbraco-cms/backoffice/models';
@@ -91,7 +91,7 @@ export class UmbCreateUserModalElement extends UmbModalBaseElement {
 		const name = formData.get('name') as string;
 		const email = formData.get('email') as string;
 		//TODO: How should we handle pickers forms?
-		const userGroupPicker = form.querySelector('#userGroups') as UmbInputPickerUserGroupElement;
+		const userGroupPicker = form.querySelector('#userGroups') as UmbUserGroupInputElement;
 		const userGroups = userGroupPicker?.value || [];
 
 		this._userStore?.invite(name, email, '', userGroups).then((user) => {
@@ -148,7 +148,7 @@ export class UmbCreateUserModalElement extends UmbModalBaseElement {
 					<uui-form-layout-item>
 						<uui-label id="userGroupsLabel" slot="label" for="userGroups" required>User group</uui-label>
 						<span slot="description">Add groups to assign access and permissions</span>
-						<umb-input-user-group id="userGroups" name="userGroups"></umb-input-user-group>
+						<umb-user-group-input id="userGroups" name="userGroups"></umb-user-group-input>
 					</uui-form-layout-item>
 				</form>
 			</uui-form>`;

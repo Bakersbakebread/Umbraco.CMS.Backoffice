@@ -4,8 +4,8 @@ import { css, html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { UmbLanguageWorkspaceContext } from '../../language-workspace.context';
-import { UmbInputCultureSelectElement } from '../../../../../../shared/components/input-culture-select/input-culture-select.element';
-import { UmbInputLanguagePickerElement } from '../../../../../../shared/components/input-language-picker/input-language-picker.element';
+import { UmbCultureSelectInputElement } from '../../../../../../shared/components/culture-select-input/culture-select-input.element';
+import { UmbLanguageInputElement } from '../../../../../../shared/components/language-input/language-input.element';
 import { UmbChangeEvent } from '@umbraco-cms/backoffice/events';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 import { LanguageResponseModel } from '@umbraco-cms/backoffice/backend-api';
@@ -94,7 +94,7 @@ export class UmbLanguageDetailsWorkspaceViewElement extends UmbLitElement {
 
 	#handleCultureChange(event: Event) {
 		if (event instanceof UmbChangeEvent) {
-			const target = event.target as UmbInputCultureSelectElement;
+			const target = event.target as UmbCultureSelectInputElement;
 			const isoCode = target.value.toString();
 			const cultureName = target.selectedCultureName;
 
@@ -141,7 +141,7 @@ export class UmbLanguageDetailsWorkspaceViewElement extends UmbLitElement {
 
 	#handleFallbackChange(event: UmbChangeEvent) {
 		if (event instanceof UmbChangeEvent) {
-			const target = event.target as UmbInputLanguagePickerElement;
+			const target = event.target as UmbLanguageInputElement;
 			const selectedLanguageIsoCode = target.selectedIsoCodes?.[0];
 			this.#languageWorkspaceContext?.setFallbackCulture(selectedLanguageIsoCode);
 		}
@@ -153,10 +153,10 @@ export class UmbLanguageDetailsWorkspaceViewElement extends UmbLitElement {
 				<umb-workspace-property-layout label="Language">
 					<div slot="editor">
 						<!-- TODO: disable already created cultures in the select -->
-						<umb-input-culture-select
+						<umb-culture-select-input
 							value=${ifDefined(this._language?.isoCode)}
 							@change=${this.#handleCultureChange}
-							?readonly=${this._isNew === false}></umb-input-culture-select>
+							?readonly=${this._isNew === false}></umb-culture-select-input>
 
 						<!-- TEMP VALIDATION ERROR -->
 						${this._validationErrors?.isoCode.map(
@@ -204,13 +204,13 @@ export class UmbLanguageDetailsWorkspaceViewElement extends UmbLitElement {
 				<umb-workspace-property-layout
 					label="Fallback language"
 					description="To allow multi-lingual content to fall back to another language if not present in the requested language, select it here.">
-					<umb-input-language-picker
+					<umb-language-input
 						value=${ifDefined(this._language?.fallbackIsoCode === null ? undefined : this._language?.fallbackIsoCode)}
 						slot="editor"
 						max="1"
 						@change=${this.#handleFallbackChange}
 						.filter=${(language: LanguageResponseModel) =>
-							language.isoCode !== this._language?.isoCode}></umb-input-language-picker>
+							language.isoCode !== this._language?.isoCode}></umb-language-input>
 				</umb-workspace-property-layout>
 			</uui-box>
 		`;

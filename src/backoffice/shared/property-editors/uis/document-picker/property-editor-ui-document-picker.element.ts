@@ -1,9 +1,9 @@
 import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import type { UmbInputDocumentPickerElement } from '../../../components/input-document-picker/input-document-picker.element';
+import type { UmbDocumentInputElement } from '../../../components/document-input/document-input.element';
 import { UmbPropertyEditorElement } from '@umbraco-cms/backoffice/property-editor';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
-import '../../../components/input-document-picker/input-document-picker.element';
+import '../../../components/document-input/document-input.element';
 import type { DataTypePropertyPresentationModel } from '@umbraco-cms/backoffice/backend-api';
 
 @customElement('umb-property-editor-ui-document-picker')
@@ -32,19 +32,19 @@ export class UmbPropertyEditorUIContentPickerElement extends UmbLitElement imple
 	private _limitMax?: number;
 
 	private _onChange(event: CustomEvent) {
-		this.value = (event.target as UmbInputDocumentPickerElement).selectedIds;
+		this.value = (event.target as UmbDocumentInputElement).selectedIds;
 		this.dispatchEvent(new CustomEvent('property-value-change'));
 	}
 
 	// TODO: Implement mandatory?
 	render() {
 		return html`
-			<umb-input-document-picker
+			<umb-document-input
 				@change=${this._onChange}
 				.selectedIds=${this._value}
 				.min=${this._limitMin}
 				.max=${this._limitMax}
-				>Add</umb-input-document-picker
+				>Add</umb-document-input
 			>
 		`;
 	}

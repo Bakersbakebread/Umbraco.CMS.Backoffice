@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { customElement, property, state } from 'lit/decorators.js';
-import { UmbInputToggleElement } from '../../../components/input-toggle/input-toggle.element';
+import { UmbToggleInputElement } from '../../../components/toggle-input/toggle-input.element';
 import { UmbPropertyEditorElement } from '@umbraco-cms/backoffice/property-editor';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 import { DataTypePropertyPresentationModel } from '@umbraco-cms/backoffice/backend-api';
@@ -41,17 +41,17 @@ export class UmbPropertyEditorUIToggleElement extends UmbLitElement implements U
 	}
 
 	private _onChange(event: CustomEvent) {
-		this.value = (event.target as UmbInputToggleElement).checked;
+		this.value = (event.target as UmbToggleInputElement).checked;
 		this.dispatchEvent(new CustomEvent('property-value-change'));
 	}
 
 	render() {
-		return html`<umb-input-toggle
+		return html`<umb-toggle-input
 			?checked="${this.value}"
 			.labelOn="${this._labelOn}"
 			.labelOff=${this._labelOff}
 			?showLabels="${this._showLabels}"
-			@change="${this._onChange}"></umb-input-toggle>`;
+			@change="${this._onChange}"></umb-toggle-input>`;
 	}
 }
 

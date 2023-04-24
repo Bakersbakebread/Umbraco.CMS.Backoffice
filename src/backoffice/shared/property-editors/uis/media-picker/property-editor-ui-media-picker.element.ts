@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { UmbInputMediaPickerElement } from '../../../../../backoffice/shared/components/input-media-picker/input-media-picker.element';
+import { UmbMediaInputElement } from '../../../components/media-input/media-input.element';
 import { UmbPropertyEditorElement } from '@umbraco-cms/backoffice/property-editor';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 import type { DataTypePropertyPresentationModel } from '@umbraco-cms/backoffice/backend-api';
@@ -35,18 +35,18 @@ export class UmbPropertyEditorUIMediaPickerElement extends UmbLitElement impleme
 	private _limitMax?: number;
 
 	private _onChange(event: CustomEvent) {
-		this.value = (event.target as UmbInputMediaPickerElement).selectedIds;
+		this.value = (event.target as UmbMediaInputElement).selectedIds;
 		this.dispatchEvent(new CustomEvent('property-value-change'));
 	}
 
 	render() {
 		return html`
-			<umb-input-media-picker
+			<umb-media-input
 				@change=${this._onChange}
 				.selectedIds=${this._value}
 				.min=${this._limitMin}
 				.max=${this._limitMax}
-				>Add</umb-input-media-picker
+				>Add</umb-media-input
 			>
 		`;
 	}

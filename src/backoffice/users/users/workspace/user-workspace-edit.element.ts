@@ -13,7 +13,7 @@ import { getLookAndColorFromUserStatus } from '@umbraco-cms/backoffice/utils';
 import type { UserDetails } from '@umbraco-cms/backoffice/models';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 
-import '../../../shared/components/input-user-group/input-user-group.element';
+import '../../../shared/components/user-group-input/user-group-input.element';
 import '../../../shared/property-editors/uis/document-picker/property-editor-ui-document-picker.element';
 import '../../../shared/components/workspace/workspace-layout/workspace-layout.element';
 
@@ -234,10 +234,10 @@ export class UmbUserWorkspaceEditElement extends UmbLitElement {
 				<div slot="headline">Assign access</div>
 				<div id="assign-access">
 					<umb-workspace-property-layout label="Groups" description="Add groups to assign access and permissions">
-						<umb-input-user-group
+						<umb-user-group-input
 							slot="editor"
 							.value=${this._user.userGroups}
-							@change=${(e: any) => this._updateProperty('userGroups', e.target.value)}></umb-input-user-group>
+							@change=${(e: any) => this._updateProperty('userGroups', e.target.value)}></umb-user-group-input>
 					</umb-workspace-property-layout>
 					<umb-workspace-property-layout
 						label="Content start node"

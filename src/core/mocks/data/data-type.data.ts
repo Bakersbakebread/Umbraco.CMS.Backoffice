@@ -49,7 +49,12 @@ export const data: Array<(DataTypeResponseModel & { type: 'data-type' }) | Folde
 		parentId: null,
 		propertyEditorAlias: 'Umbraco.TextArea',
 		propertyEditorUiAlias: 'Umb.PropertyEditorUI.TextArea',
-		values: [],
+		values: [
+			{
+				alias: 'rows',
+				value: 10,
+			},
+		],
 	},
 	{
 		$type: 'data-type',

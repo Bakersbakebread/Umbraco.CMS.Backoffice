@@ -1,8 +1,8 @@
 import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
-import '../../../components/input-radio-button-list/input-radio-button-list.element';
-import type { UmbInputRadioButtonListElement } from '../../../components/input-radio-button-list/input-radio-button-list.element';
+import '../../../components/radio-button-list-input/radio-button-list-input.element';
+import type { UmbRadioButtonListInputElement } from '../../../components/radio-button-list-input/radio-button-list-input.element';
 import { UmbPropertyEditorElement } from '@umbraco-cms/backoffice/property-editor';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 import type { DataTypePropertyPresentationModel } from '@umbraco-cms/backoffice/backend-api';
@@ -49,15 +49,15 @@ export class UmbPropertyEditorUIRadioButtonListElement extends UmbLitElement imp
 	private _list: Array<{ key: string; sortOrder: number; value: string }> = [];
 
 	#onChange(event: CustomEvent) {
-		this.value = (event.target as UmbInputRadioButtonListElement).selected;
+		this.value = (event.target as UmbRadioButtonListInputElement).selected;
 		this.dispatchEvent(new CustomEvent('property-value-change'));
 	}
 
 	render() {
-		return html`<umb-input-radio-button-list
+		return html`<umb-radio-button-list-input
 			@change="${this.#onChange}"
 			.selectedKey="${this.#value}"
-			.list="${this._list}"></umb-input-radio-button-list>`;
+			.list="${this._list}"></umb-radio-button-list-input>`;
 	}
 }
 

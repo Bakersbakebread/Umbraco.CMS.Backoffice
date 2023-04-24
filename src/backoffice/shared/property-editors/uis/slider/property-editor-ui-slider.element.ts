@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { customElement, property, state } from 'lit/decorators.js';
-import UmbInputSliderElement from '../../../../shared/components/input-slider/input-slider.element';
+import UmbSliderInputElement from '../../../components/slider-input/slider-input.element';
 import { UmbPropertyEditorElement } from '@umbraco-cms/backoffice/property-editor';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 import { DataTypePropertyPresentationModel } from '@umbraco-cms/backoffice/backend-api';
@@ -66,20 +66,20 @@ export class UmbPropertyEditorUISliderElement extends UmbLitElement implements U
 	}
 
 	private _onChange(event: CustomEvent) {
-		const eventVal = this.#getValueObject((event.target as UmbInputSliderElement).value as string);
+		const eventVal = this.#getValueObject((event.target as UmbSliderInputElement).value as string);
 		this.value = eventVal;
 		this.dispatchEvent(new CustomEvent('property-value-change'));
 	}
 
 	render() {
-		return html`<umb-input-slider
+		return html`<umb-slider-input
 			.initVal1="${this._initVal1 ?? 0}"
 			.initVal2="${this._initVal2 ?? 0}"
 			.step="${this._step ?? 0}"
 			.min="${this._min ?? 0}"
 			.max="${this._max ?? 0}"
 			?enable-range=${this._enableRange}
-			@change="${this._onChange}"></umb-input-slider>`;
+			@change="${this._onChange}"></umb-slider-input>`;
 	}
 }
 

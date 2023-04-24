@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { customElement, property, state } from 'lit/decorators.js';
-import { UmbInputUploadFieldElement } from '../../../../shared/components/input-upload-field/input-upload-field.element';
+import { UmbUploadFieldInputElement } from '../../../components/upload-field-input/upload-field-input.element';
 import type { DataTypePropertyPresentationModel } from '@umbraco-cms/backoffice/backend-api';
 import type { UmbPropertyEditorElement } from '@umbraco-cms/backoffice/property-editor';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
@@ -32,15 +32,15 @@ export class UmbPropertyEditorUIUploadFieldElement extends UmbLitElement impleme
 	private _multiple?: boolean;
 
 	private _onChange(event: CustomEvent) {
-		this.value = (event.target as unknown as UmbInputUploadFieldElement).value as string;
+		this.value = (event.target as unknown as UmbUploadFieldInputElement).value as string;
 		this.dispatchEvent(new CustomEvent('property-value-change'));
 	}
 
 	render() {
-		return html`<umb-input-upload-field
+		return html`<umb-upload-field-input
 			@change="${this._onChange}"
 			?multiple="${this._multiple}"
-			.fileExtensions="${this._fileExtensions}"></umb-input-upload-field>`;
+			.fileExtensions="${this._fileExtensions}"></umb-upload-field-input>`;
 	}
 }
 
