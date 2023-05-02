@@ -30,6 +30,7 @@ export const Time: Story = {
 	args: {
 		type: 'time',
 		value: '10:00',
+		offsetTime: false,
 	},
 };
 
