@@ -1,6 +1,6 @@
 import type { UmbTreeDataSource } from '@umbraco-cms/backoffice/repository';
-import { ProblemDetailsModel, DocumentTypeResource } from '@umbraco-cms/backoffice/backend-api';
-import { UmbControllerHostElement } from '@umbraco-cms/backoffice/controller';
+import { DocumentTypeResource } from '@umbraco-cms/backoffice/backend-api';
+import type { UmbControllerHostElement } from '@umbraco-cms/backoffice/controller';
 import { tryExecuteAndNotify } from '@umbraco-cms/backoffice/resources';
 
 /**
@@ -66,17 +66,20 @@ export class UmbDocumentTypeTreeServerDataSource implements UmbTreeDataSource {
 	 * @memberof UmbDocumentTypeTreeServerDataSource
 	 */
 	async getChildrenOf(parentId: string | null) {
-		if (!parentId) {
-			const error: ProblemDetailsModel = { title: 'Parent id is missing' };
-			return { error };
-		}
+		if (parentId === undefined) throw new Error('Parent id is missing');
 
-		return tryExecuteAndNotify(
-			this.#host,
-			DocumentTypeResource.getTreeDocumentTypeChildren({
-				parentId,
-			})
-		);
+		/* TODO: should we make getRootItems() internal 
+		so it only is a server concern that there are two endpoints? */
+		if (parentId === null) {
+			return this.getRootItems();
+		} else {
+			return tryExecuteAndNotify(
+				this.#host,
+				DocumentTypeResource.getTreeDocumentTypeChildren({
+					parentId,
+				})
+			);
+		}
 	}
 
 	/**
@@ -87,8 +90,7 @@ export class UmbDocumentTypeTreeServerDataSource implements UmbTreeDataSource {
 	 */
 	async getItems(ids: Array<string>) {
 		if (ids) {
-			const error: ProblemDetailsModel = { title: 'Keys are missing' };
-			return { error };
+			throw new Error('Ids are missing');
 		}
 
 		return tryExecuteAndNotify(

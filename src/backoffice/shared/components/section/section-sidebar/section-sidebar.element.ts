@@ -1,7 +1,7 @@
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { UmbSectionSidebarContext, UMB_SECTION_SIDEBAR_CONTEXT_TOKEN } from './section-sidebar.context';
+import { UmbSectionSidebarContext, UMB_SECTION_SIDEBAR_CONTEXT_TOKEN } from '@umbraco-cms/backoffice/section';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 
 import '../../tree/context-menu/tree-context-menu.service';
@@ -9,6 +9,23 @@ import '../section-sidebar-context-menu/section-sidebar-context-menu.element';
 
 @customElement('umb-section-sidebar')
 export class UmbSectionSidebarElement extends UmbLitElement {
+	#sectionSidebarContext = new UmbSectionSidebarContext(this);
+
+	constructor() {
+		super();
+		this.provideContext(UMB_SECTION_SIDEBAR_CONTEXT_TOKEN, this.#sectionSidebarContext);
+	}
+
+	render() {
+		return html`
+			<umb-section-sidebar-context-menu>
+				<uui-scroll-container id="scroll-container">
+					<slot></slot>
+				</uui-scroll-container>
+			</umb-section-sidebar-context-menu>
+		`;
+	}
+
 	static styles = [
 		UUITextStyles,
 		css`
@@ -29,23 +46,6 @@ export class UmbSectionSidebarElement extends UmbLitElement {
 			}
 		`,
 	];
-
-	#sectionSidebarContext = new UmbSectionSidebarContext(this);
-
-	constructor() {
-		super();
-		this.provideContext(UMB_SECTION_SIDEBAR_CONTEXT_TOKEN, this.#sectionSidebarContext);
-	}
-
-	render() {
-		return html`
-			<umb-section-sidebar-context-menu>
-				<uui-scroll-container id="scroll-container">
-					<slot></slot>
-				</uui-scroll-container>
-			</umb-section-sidebar-context-menu>
-		`;
-	}
 }
 
 declare global {

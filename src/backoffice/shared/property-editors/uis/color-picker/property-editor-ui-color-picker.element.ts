@@ -2,18 +2,16 @@ import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { UUIColorSwatchesEvent } from '@umbraco-ui/uui';
-import { UmbPropertyEditorElement } from '@umbraco-cms/backoffice/property-editor';
+import { UmbPropertyEditorExtensionElement } from '@umbraco-cms/backoffice/extensions-registry';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 import type { DataTypePropertyPresentationModel } from '@umbraco-cms/backoffice/backend-api';
-import type { SwatchDetails } from '@umbraco-cms/backoffice/models';
+import type { UmbSwatchDetails } from '@umbraco-cms/backoffice/models';
 
 /**
  * @element umb-property-editor-ui-color-picker
  */
 @customElement('umb-property-editor-ui-color-picker')
-export class UmbPropertyEditorUIColorPickerElement extends UmbLitElement implements UmbPropertyEditorElement {
-	static styles = [UUITextStyles];
-
+export class UmbPropertyEditorUIColorPickerElement extends UmbLitElement implements UmbPropertyEditorExtensionElement {
 	@property()
 	value = '';
 
@@ -21,7 +19,7 @@ export class UmbPropertyEditorUIColorPickerElement extends UmbLitElement impleme
 	private _showLabels = false;
 
 	@state()
-	private _swatches: SwatchDetails[] = [];
+	private _swatches: UmbSwatchDetails[] = [];
 
 	@property({ type: Array, attribute: false })
 	public set config(config: Array<DataTypePropertyPresentationModel>) {
@@ -43,6 +41,8 @@ export class UmbPropertyEditorUIColorPickerElement extends UmbLitElement impleme
 			.swatches="${this._swatches}"
 			.showLabels="${this._showLabels}"></umb-input-color-picker>`;
 	}
+
+	static styles = [UUITextStyles];
 }
 
 export default UmbPropertyEditorUIColorPickerElement;

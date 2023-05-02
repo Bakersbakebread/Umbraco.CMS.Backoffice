@@ -12,8 +12,6 @@ import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 // TODO: make use of UmbPickerLayoutBase
 @customElement('umb-data-type-picker-modal')
 export class UmbDataTypePickerModalElement extends UmbLitElement {
-	static styles = [UUITextStyles, css``];
-
 	@property({ attribute: false })
 	modalHandler?: UmbModalHandler<UmbDataTypePickerModalData, UmbDataTypePickerModalResult>;
 
@@ -21,7 +19,7 @@ export class UmbDataTypePickerModalElement extends UmbLitElement {
 	data?: UmbDataTypePickerModalData;
 
 	@state()
-	_selection: Array<string> = [];
+	_selection: Array<string | null> = [];
 
 	@state()
 	_multiple = false;
@@ -64,6 +62,8 @@ export class UmbDataTypePickerModalElement extends UmbLitElement {
 			</umb-body-layout>
 		`;
 	}
+
+	static styles = [UUITextStyles, css``];
 }
 
 export default UmbDataTypePickerModalElement;

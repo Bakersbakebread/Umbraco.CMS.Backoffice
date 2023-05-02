@@ -1,8 +1,8 @@
+import type { MemberTypeDetails } from '../types';
 import { UmbContextToken } from '@umbraco-cms/backoffice/context-api';
 import { UmbStoreBase } from '@umbraco-cms/backoffice/store';
 import { UmbControllerHostElement } from '@umbraco-cms/backoffice/controller';
 import { UmbArrayState } from '@umbraco-cms/backoffice/observable-api';
-import type { MemberTypeDetails } from '@umbraco-cms/backoffice/models';
 
 /**
  * @export
@@ -17,6 +17,15 @@ export class UmbMemberTypeStore extends UmbStoreBase {
 
 	append(MemberType: MemberTypeDetails) {
 		this._data.append([MemberType]);
+	}
+
+	/**
+	 * Retrieve a member type from the store
+	 * @param {string} id
+	 * @memberof UmbMemberTypeStore
+	 */
+	byId(id: MemberTypeDetails['id']) {
+		return this._data.getObservablePart((x) => x.find((y) => y.id === id));
 	}
 
 	remove(uniques: string[]) {

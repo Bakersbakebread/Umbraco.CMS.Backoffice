@@ -2,27 +2,32 @@ import { UmbTemplateDetailServerDataSource } from './sources/template.detail.ser
 import { UmbTemplateTreeServerDataSource } from './sources/template.tree.server.data';
 import { UmbTemplateStore, UMB_TEMPLATE_STORE_CONTEXT_TOKEN } from './template.store';
 import { UmbTemplateTreeStore, UMB_TEMPLATE_TREE_STORE_CONTEXT_TOKEN } from './template.tree.store';
-import type { UmbDetailRepository, UmbTreeRepository } from '@umbraco-cms/backoffice/repository';
-import { UmbControllerHostElement } from '@umbraco-cms/backoffice/controller';
+import type {
+	UmbDataSource,
+	UmbDetailRepository,
+	UmbTreeDataSource,
+	UmbTreeRepository,
+} from '@umbraco-cms/backoffice/repository';
+import type { UmbControllerHostElement } from '@umbraco-cms/backoffice/controller';
 import { UmbNotificationContext, UMB_NOTIFICATION_CONTEXT_TOKEN } from '@umbraco-cms/backoffice/notification';
 import { UmbContextConsumerController } from '@umbraco-cms/backoffice/context-api';
 import {
 	CreateTemplateRequestModel,
-	ProblemDetailsModel,
+	EntityTreeItemResponseModel,
 	TemplateResponseModel,
 	UpdateTemplateRequestModel,
 } from '@umbraco-cms/backoffice/backend-api';
 
 export class UmbTemplateRepository
 	implements
-		UmbTreeRepository<any>,
-		UmbDetailRepository<CreateTemplateRequestModel, UpdateTemplateRequestModel, TemplateResponseModel>
+		UmbTreeRepository<EntityTreeItemResponseModel>,
+		UmbDetailRepository<CreateTemplateRequestModel, any, UpdateTemplateRequestModel, TemplateResponseModel>
 {
 	#init;
 	#host: UmbControllerHostElement;
 
-	#treeDataSource: UmbTemplateTreeServerDataSource;
-	#detailDataSource: UmbTemplateDetailServerDataSource;
+	#treeDataSource: UmbTreeDataSource<EntityTreeItemResponseModel>;
+	#detailDataSource: UmbDataSource<CreateTemplateRequestModel, any, UpdateTemplateRequestModel, TemplateResponseModel>;
 
 	#treeStore?: UmbTemplateTreeStore;
 	#store?: UmbTemplateStore;
@@ -52,6 +57,19 @@ export class UmbTemplateRepository
 	}
 
 	// TREE:
+	async requestTreeRoot() {
+		await this.#init;
+
+		const data = {
+			id: null,
+			type: 'template-root',
+			name: 'Templates',
+			icon: 'umb:folder',
+			hasChildren: true,
+		};
+
+		return { data };
+	}
 
 	async requestRootTreeItems() {
 		await this.#init;
@@ -66,12 +84,8 @@ export class UmbTemplateRepository
 	}
 
 	async requestTreeItemsOf(parentId: string | null) {
+		if (parentId === undefined) throw new Error('Parent id is missing');
 		await this.#init;
-
-		if (!parentId) {
-			const error: ProblemDetailsModel = { title: 'Parent id is missing' };
-			return { data: undefined, error };
-		}
 
 		const { data, error } = await this.#treeDataSource.getChildrenOf(parentId);
 
@@ -86,8 +100,7 @@ export class UmbTemplateRepository
 		await this.#init;
 
 		if (!ids) {
-			const error: ProblemDetailsModel = { title: 'Keys are missing' };
-			return { data: undefined, error };
+			throw new Error('Ids are missing');
 		}
 
 		const { data, error } = await this.#treeDataSource.getItems(ids);
@@ -105,7 +118,7 @@ export class UmbTemplateRepository
 		return this.#treeStore!.childrenOf(parentId);
 	}
 
-	async itemsLegacy(ids: Array<string>) {
+	async itemsLegacy(ids: Array<string | null>) {
 		await this.#init;
 		return this.#treeStore!.items(ids);
 	}
@@ -113,14 +126,9 @@ export class UmbTemplateRepository
 	// DETAILS:
 
 	async createScaffold(parentId: string | null) {
+		if (parentId === undefined) throw new Error('Parent id is missing');
 		await this.#init;
-
-		if (!parentId) {
-			throw new Error('Parent id is missing');
-		}
-
-		// TODO: add parent id to create scaffold
-		return this.#detailDataSource.createScaffold();
+		return this.#detailDataSource.createScaffold(parentId);
 	}
 
 	async requestById(id: string) {
@@ -129,8 +137,7 @@ export class UmbTemplateRepository
 		// TODO: should we show a notification if the id is missing?
 		// Investigate what is best for Acceptance testing, cause in that perspective a thrown error might be the best choice?
 		if (!id) {
-			const error: ProblemDetailsModel = { title: 'Key is missing' };
-			return { error };
+			throw new Error('Id is missing');
 		}
 		const { data, error } = await this.#detailDataSource.get(id);
 
@@ -139,6 +146,11 @@ export class UmbTemplateRepository
 		}
 
 		return { data, error };
+	}
+	async byId(id: string) {
+		if (!id) throw new Error('Key is missing');
+		await this.#init;
+		return this.#store!.byId(id);
 	}
 
 	// Could potentially be general methods:
