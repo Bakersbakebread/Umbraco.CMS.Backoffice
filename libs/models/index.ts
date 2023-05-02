@@ -108,3 +108,10 @@ export type PackageManifestResponse = UmbPackage[];
 export type UmbPackageWithMigrationStatus = UmbPackage & {
 	hasPendingMigrations: boolean;
 };
+
+export interface ServertimeOffset {
+	/**
+	 * offset in minutes relative to UTC
+	 */
+	offset: number;
+}
