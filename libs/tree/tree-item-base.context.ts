@@ -11,11 +11,7 @@ import {
 	UmbObserverController,
 } from '@umbraco-cms/backoffice/observable-api';
 import { UmbControllerHostElement } from '@umbraco-cms/backoffice/controller';
-import {
-	UmbContextConsumerController,
-	UmbContextProviderController,
-	UmbContextToken,
-} from '@umbraco-cms/backoffice/context-api';
+import { UmbContextBase, UmbContextConsumerController, UmbContextToken } from '@umbraco-cms/backoffice/context-api';
 import { umbExtensionsRegistry } from '@umbraco-cms/backoffice/extensions-api';
 import type { TreeItemPresentationModel } from '@umbraco-cms/backoffice/backend-api';
 
@@ -25,9 +21,9 @@ export type UmbTreeItemUniqueFunction<TreeItemType extends TreeItemPresentationM
 ) => string | null | undefined;
 
 export class UmbTreeItemContextBase<TreeItemType extends TreeItemPresentationModel>
+	extends UmbContextBase<UmbTreeItemContext<TreeItemType>>
 	implements UmbTreeItemContext<TreeItemType>
 {
-	public host: UmbControllerHostElement;
 	public unique?: string | null;
 	public type?: string;
 
@@ -62,10 +58,9 @@ export class UmbTreeItemContextBase<TreeItemType extends TreeItemPresentationMod
 	#actionObserver?: UmbObserverController<ManifestEntityAction[]>;
 
 	constructor(host: UmbControllerHostElement, getUniqueFunction: UmbTreeItemUniqueFunction<TreeItemType>) {
-		this.host = host;
+		super(host, UMB_TREE_ITEM_CONTEXT_TOKEN);
 		this.#getUniqueFunction = getUniqueFunction;
 		this.#consumeContexts();
-		new UmbContextProviderController(host, UMB_TREE_ITEM_CONTEXT_TOKEN, this);
 	}
 
 	public setTreeItem(treeItem: TreeItemType | undefined) {
@@ -125,7 +120,7 @@ export class UmbTreeItemContextBase<TreeItemType extends TreeItemPresentationMod
 			this.#sectionSidebarContext = instance;
 		});
 
-		new UmbContextConsumerController(this.host, 'umbTreeContext', (treeContext: UmbTreeContextBase<TreeItemType>) => {
+		new UmbContextConsumerController(this.host, 'umbTree', (treeContext: UmbTreeContextBase<TreeItemType>) => {
 			this.treeContext = treeContext;
 			this.#observeIsSelectable();
 			this.#observeIsSelected();

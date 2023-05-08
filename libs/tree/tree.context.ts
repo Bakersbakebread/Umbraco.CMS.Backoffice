@@ -5,7 +5,7 @@ import { UmbBooleanState, UmbArrayState, UmbObserverController } from '@umbraco-
 import { UmbControllerHostElement } from '@umbraco-cms/backoffice/controller';
 import { createExtensionClass, umbExtensionsRegistry } from '@umbraco-cms/backoffice/extensions-api';
 import { ProblemDetailsModel, TreeItemPresentationModel } from '@umbraco-cms/backoffice/backend-api';
-import { UmbContextProviderController } from '@umbraco-cms/backoffice/context-api';
+import { UmbContextBase, UmbContextProviderController } from '@umbraco-cms/backoffice/context-api';
 
 // TODO: update interface
 export interface UmbTreeContext<TreeItemType extends TreeItemPresentationModel> {
@@ -24,10 +24,9 @@ export interface UmbTreeContext<TreeItemType extends TreeItemPresentationModel> 
 }
 
 export class UmbTreeContextBase<TreeItemType extends TreeItemPresentationModel>
+	extends UmbContextBase<UmbTreeContext<TreeItemType>>
 	implements UmbTreeContext<TreeItemType>
 {
-	public host: UmbControllerHostElement;
-
 	#selectable = new UmbBooleanState(false);
 	public readonly selectable = this.#selectable.asObservable();
 
@@ -50,8 +49,7 @@ export class UmbTreeContextBase<TreeItemType extends TreeItemPresentationModel>
 	});
 
 	constructor(host: UmbControllerHostElement) {
-		this.host = host;
-		new UmbContextProviderController(host, 'umbTreeContext', this);
+		super(host, 'umbTree');
 	}
 
 	// TODO: find a generic way to do this
