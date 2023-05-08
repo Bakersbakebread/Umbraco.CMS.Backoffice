@@ -5,7 +5,7 @@ import type { UUIModalDialogElement, UUIModalSidebarSize } from '@umbraco-ui/uui
 import { BehaviorSubject } from 'rxjs';
 import { UmbModalHandler, UmbModalHandlerClass } from './modal-handler';
 import type { UmbModalToken } from './token/modal-token';
-import { UmbContextToken } from '@umbraco-cms/backoffice/context-api';
+import { UmbContextBase, UmbContextToken } from '@umbraco-cms/backoffice/context-api';
 import { UmbControllerHostElement } from '@umbraco-cms/backoffice/controller';
 
 export type UmbModalType = 'dialog' | 'sidebar';
@@ -16,16 +16,13 @@ export interface UmbModalConfig {
 	size?: UUIModalSidebarSize;
 }
 
-// TODO: we should find a way to easily open a modal without adding custom methods to this context. It would result in a better separation of concerns.
-// TODO: move all layouts into their correct "silo" folders. User picker should live with users etc.
-export class UmbModalContext {
-	host: UmbControllerHostElement;
+export class UmbModalContext extends UmbContextBase<UmbModalContext> {
 	// TODO: Investigate if we can get rid of HTML elements in our store, so we can use one of our states.
 	#modals = new BehaviorSubject(<Array<UmbModalHandler>>[]);
 	public readonly modals = this.#modals.asObservable();
 
 	constructor(host: UmbControllerHostElement) {
-		this.host = host;
+		super(host, UMB_MODAL_CONTEXT_TOKEN);
 	}
 
 	// TODO: Remove this when the modal system is more flexible
