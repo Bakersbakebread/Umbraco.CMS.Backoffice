@@ -1,21 +1,18 @@
 import { UmbStore } from './store.interface';
-import { UmbContextProviderController } from '@umbraco-cms/backoffice/context-api';
+import { UmbContextBase } from '@umbraco-cms/backoffice/context-api';
 import { UmbControllerHostElement } from '@umbraco-cms/backoffice/controller';
 import { UmbArrayState } from '@umbraco-cms/backoffice/observable-api';
 
 // TODO: Make a Store interface?
-export class UmbStoreBase<StoreItemType = any> implements UmbStore<StoreItemType> {
-	protected _host: UmbControllerHostElement;
+export class UmbStoreBase<StoreItemType = any> extends UmbContextBase<UmbStoreBase> implements UmbStore<StoreItemType> {
 	protected _data: UmbArrayState<StoreItemType>;
 
 	public readonly storeAlias: string;
 
-	constructor(_host: UmbControllerHostElement, storeAlias: string, data: UmbArrayState<StoreItemType>) {
-		this._host = _host;
+	constructor(host: UmbControllerHostElement, storeAlias: string, data: UmbArrayState<StoreItemType>) {
+		super(host, storeAlias);
 		this.storeAlias = storeAlias;
 		this._data = data;
-
-		new UmbContextProviderController(_host, storeAlias, this);
 	}
 
 	/**
