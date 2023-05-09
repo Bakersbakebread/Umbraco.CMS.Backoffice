@@ -34,7 +34,7 @@ export class UmbPropertyEditorUITextBoxElement extends UmbLitElement implements 
 	render() {
 		return html`<uui-input
 			.value=${this.value}
-			type="${this._type}"
+			.type="${this._type}"
 			maxlength="${ifDefined(this._maxChars)}"
 			@input=${this.onInput}></uui-input>`;
 	}
