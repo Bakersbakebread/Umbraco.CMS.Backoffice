@@ -26,6 +26,12 @@ export const manifest: ManifestPropertyEditorModel = {
 					propertyEditorUI: 'Umb.PropertyEditorUI.Number',
 				},
 			],
+			defaultData: [
+				{
+					alias: 'step',
+					value: '0.01',
+				},
+			],
 		},
 	},
 };

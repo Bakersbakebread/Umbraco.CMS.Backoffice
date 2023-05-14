@@ -18,15 +18,6 @@ export const manifests: Array<ManifestPropertyEditorUI> = [
 			propertyEditorModel: 'Umbraco.Integer',
 			icon: 'umb:autofill',
 			group: 'common',
-			config: {
-				properties: [allowDecimalsConfig],
-				defaultData: [
-					{
-						alias: 'allowDecimals',
-						value: false,
-					},
-				],
-			},
 		},
 	},
 	{
@@ -39,15 +30,6 @@ export const manifests: Array<ManifestPropertyEditorUI> = [
 			propertyEditorModel: 'Umbraco.Decimal',
 			icon: 'umb:autofill',
 			group: 'common',
-			config: {
-				properties: [allowDecimalsConfig],
-				defaultData: [
-					{
-						alias: 'allowDecimals',
-						value: true,
-					},
-				],
-			},
 		},
 	},
 ];
