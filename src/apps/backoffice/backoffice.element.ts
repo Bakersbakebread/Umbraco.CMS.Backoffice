@@ -20,6 +20,7 @@ const CORE_PACKAGES = [
 	import('../../packages/templating/umbraco-package'),
 	import('../../packages/umbraco-news/umbraco-package'),
 	import('../../packages/tags/umbraco-package'),
+	import('../../packages/suggestions/umbraco-package'),
 ];
 
 @defineElement('umb-backoffice')

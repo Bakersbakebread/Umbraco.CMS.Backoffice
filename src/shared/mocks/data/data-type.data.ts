@@ -66,6 +66,25 @@ export const data: Array<DataTypeResponseModel | FolderTreeItemResponseModel> = 
 	{
 		$type: '',
 		type: 'data-type',
+		name: 'My Awesome Suggestions Property Editor',
+		id: 'dt-suggestions',
+		parentId: null,
+		propertyEditorAlias: 'Umbraco.JSON',
+		propertyEditorUiAlias: 'My.PropertyEditorUI.AwesomeSuggestions',
+		values: [
+			{
+				alias: 'placeholder',
+				value: 'I am text',
+			},
+			{
+				alias: 'disabled',
+				value: false,
+			},
+		],
+	},
+	{
+		$type: '',
+		type: 'data-type',
 		name: 'Color Picker',
 		id: 'dt-colorPicker',
 		parentId: null,
