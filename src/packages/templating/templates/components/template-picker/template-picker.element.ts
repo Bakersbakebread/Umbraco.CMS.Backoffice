@@ -1,4 +1,3 @@
-import type { UmbTemplateCardElement } from '../template-card/template-card.element.js';
 import '../template-card/template-card.element.js';
 
 import { UmbTemplateRepository } from '../../repository/template.repository.js';
@@ -13,8 +12,8 @@ import {
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 import { ItemResponseModelBaseModel, TemplateResponseModel } from '@umbraco-cms/backoffice/backend-api';
 
-@customElement('umb-input-template')
-export class UmbInputTemplateElement extends FormControlMixin(UmbLitElement) {
+@customElement('umb-template-picker')
+export class UmbTemplatePickerElement extends FormControlMixin(UmbLitElement) {
 	/**
 	 * This is a minimum amount of selected items in this input.
 	 * @type {number}
@@ -51,13 +50,13 @@ export class UmbInputTemplateElement extends FormControlMixin(UmbLitElement) {
 	@property({ type: String, attribute: 'min-message' })
 	maxMessage = 'This field exceeds the allowed amount of items';
 
-	_selectedIds: Array<string> = [];
+	_allowedIds: Array<string> = [];
 	@property({ type: Array })
-	public get selectedIds() {
-		return this._selectedIds;
+	public get allowedIds() {
+		return this._allowedIds;
 	}
-	public set selectedIds(newKeys: Array<string> | undefined) {
-		this._selectedIds = newKeys ?? [];
+	public set allowedIds(newKeys: Array<string> | undefined) {
+		this._allowedIds = newKeys ?? [];
 		this.#observePickedTemplates();
 	}
 
@@ -69,7 +68,6 @@ export class UmbInputTemplateElement extends FormControlMixin(UmbLitElement) {
 	public set defaultId(newId: string) {
 		this._defaultId = newId;
 		super.value = newId;
-		this.#observePickedTemplates();
 	}
 
 	private _modalContext?: UmbModalManagerContext;
@@ -88,13 +86,13 @@ export class UmbInputTemplateElement extends FormControlMixin(UmbLitElement) {
 
 	async #observePickedTemplates() {
 		this.observe(
-			(await this._templateRepository.requestItems(this._selectedIds)).asObservable(),
+			(await this._templateRepository.requestItems(this._allowedIds)).asObservable(),
 			(data) => {
 				const oldValue = this._pickedTemplates;
 				this._pickedTemplates = data;
 				this.requestUpdate('_pickedTemplates', oldValue);
 			},
-			'_observeTemplates'
+			'_observeTemplates',
 		);
 	}
 
@@ -102,24 +100,17 @@ export class UmbInputTemplateElement extends FormControlMixin(UmbLitElement) {
 		return this;
 	}
 
-	#onCardChange(e: CustomEvent) {
-		e.stopPropagation();
-		const newKey = (e.target as UmbTemplateCardElement).value as string;
-		this.defaultId = newKey;
-		this.dispatchEvent(new CustomEvent('change'));
-	}
-
 	#openPicker() {
 		// TODO: Change experience, so its not multi selectable. But instead already picked templates should be unpickable. (awaiting general picker features for such)
 		const modalContext = this._modalContext?.open(UMB_TEMPLATE_PICKER_MODAL, {
 			multiple: true,
-			selection: [...this._selectedIds],
+			selection: [...this._allowedIds],
 			pickableFilter: (template: TemplateResponseModel) => template.id !== null,
 		});
 
 		modalContext?.onSubmit().then((data) => {
 			if (!data.selection) return;
-			this.selectedIds = data.selection.filter((x) => x !== null) as Array<string>;
+			this.allowedIds = data.selection.filter((x) => x !== null) as Array<string>;
 			this.dispatchEvent(new CustomEvent('change'));
 		});
 	}
@@ -134,39 +125,52 @@ export class UmbInputTemplateElement extends FormControlMixin(UmbLitElement) {
 		In current backoffice we just prevent deleting a default when there are other templates. But if its the only one its okay. This is a weird experience, so we should make something that makes more sense.
 		BTW. its weird cause the damage of removing the default template is equally bad when there is one or more templates.
 		*/
-		this.selectedIds = this._selectedIds.filter((x) => x !== id);
+		this.allowedIds = this._allowedIds.filter((x) => x !== id);
 	}
 
-	#openTemplate(e: CustomEvent) {
-		const id = (e.target as UmbTemplateCardElement).value;
-
+	#openTemplate(id: string) {
 		this._modalContext?.open(UMB_TEMPLATE_MODAL, {
-			id: id as string,
+			id,
 			language: 'razor',
 		});
+	}
+
+	#onDefaultChange(newDefaultId: string) {
+		if (!newDefaultId) return;
+
+		this.defaultId = newDefaultId;
+		this.dispatchEvent(new CustomEvent('change'));
 	}
 
 	render() {
 		return html`
 			${this._pickedTemplates.map(
 				(template) => html`
-					<umb-template-card
-						.name="${template.name ?? ''}"
-						.id="${template.id ?? ''}"
-						@change=${this.#onCardChange}
-						@open="${this.#openTemplate}"
-						?default="${template.id === this.defaultId}">
+					<umb-template-card .name=${template.name ?? ''} @open=${() => this.#openTemplate(template.id ?? '')}>
 						<uui-button
 							slot="actions"
-							label="Remove document ${template.name}"
+							label=${this.localize.term('general_remove')}
 							@click="${() => this.#removeTemplate(template.id ?? '')}"
 							compact>
 							<uui-icon name="umb:trash"></uui-icon>
 						</uui-button>
+						${this.defaultId === template.id ? html`<uui-tag slot="badge">Default</uui-tag>` : ''}
+						<uui-button
+							label=${this.localize.term('grid_setAsDefault')}
+							?disabled=${this.defaultId === template.id}
+							@click=${() => this.#onDefaultChange(template.id ?? '')}>
+							${this.localize.term('grid_setAsDefault')}
+						</uui-button>
 					</umb-template-card>
-				`
+				`,
 			)}
-			<uui-button id="add-button" look="placeholder" label="open" @click="${this.#openPicker}">Add</uui-button>
+			<uui-button
+				id="add-button"
+				look="placeholder"
+				label=${this.localize.term('general_add')}
+				@click="${this.#openPicker}">
+				${this.localize.term('general_add')}
+			</uui-button>
 		`;
 	}
 
@@ -191,10 +195,10 @@ export class UmbInputTemplateElement extends FormControlMixin(UmbLitElement) {
 	];
 }
 
-export default UmbInputTemplateElement;
+export default UmbTemplatePickerElement;
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'umb-input-template': UmbInputTemplateElement;
+		'umb-template-picker': UmbTemplatePickerElement;
 	}
 }

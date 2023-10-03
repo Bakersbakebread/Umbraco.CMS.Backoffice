@@ -1,8 +1,8 @@
 import { UmbDocumentTypeWorkspaceContext } from '../../document-type-workspace.context.js';
-import type { UmbInputTemplateElement } from '../../../../../templating/templates/components/input-template/input-template.element.js';
-import '../../../../../templating/templates/components/input-template/input-template.element.js';
-import { css, html, customElement, state } from '@umbraco-cms/backoffice/external/lit';
-import { UmbTextStyles } from "@umbraco-cms/backoffice/style";
+import type { UmbTemplatePickerElement } from '../../../../../templating/templates/components/template-picker/template-picker.element.js';
+import '../../../../../templating/templates/components/template-picker/template-picker.element.js';
+import { css, html, customElement, state, ifDefined } from '@umbraco-cms/backoffice/external/lit';
+import { UmbTextStyles } from '@umbraco-cms/backoffice/style';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 import { UMB_WORKSPACE_CONTEXT } from '@umbraco-cms/backoffice/workspace';
 import { UmbWorkspaceEditorViewExtensionElement } from '@umbraco-cms/backoffice/extension-registry';
@@ -37,7 +37,7 @@ export class UmbDocumentTypeWorkspaceViewTemplatesElement
 				this._defaultTemplateId = defaultTemplateId;
 				this.requestUpdate('_defaultTemplateId', oldValue);
 			},
-			'defaultTemplate'
+			'defaultTemplate',
 		);
 		this.observe(
 			this.#workspaceContext.allowedTemplateIds,
@@ -46,14 +46,14 @@ export class UmbDocumentTypeWorkspaceViewTemplatesElement
 				this._allowedTemplateIds = allowedTemplateIds;
 				this.requestUpdate('_allowedTemplateIds', oldValue);
 			},
-			'allowedTemplateIds'
+			'allowedTemplateIds',
 		);
 	}
 
 	#templateInputChange(e: CustomEvent) {
 		// save new allowed ids
-		const input = e.target as UmbInputTemplateElement;
-		const idsWithoutRoot = input.selectedIds?.filter((id) => id !== null) ?? [];
+		const input = e.target as UmbTemplatePickerElement;
+		const idsWithoutRoot = input.allowedIds?.filter((id) => id !== null) ?? [];
 		this.#workspaceContext?.setAllowedTemplateIds(idsWithoutRoot);
 		this.#workspaceContext?.setDefaultTemplateId(input.defaultId);
 	}
@@ -63,10 +63,10 @@ export class UmbDocumentTypeWorkspaceViewTemplatesElement
 			<umb-workspace-property-layout alias="Templates" label="Allowed Templates">
 				<div slot="description">Choose which templates editors are allowed to use on content of this type</div>
 				<div id="templates" slot="editor">
-					<umb-input-template
-						.defaultId=${this._defaultTemplateId}
-						.selectedIds=${this._allowedTemplateIds}
-						@change=${this.#templateInputChange}></umb-input-template>
+					<umb-template-picker
+						defaultId=${ifDefined(this._defaultTemplateId ?? undefined)}
+						.allowedIds=${this._allowedTemplateIds}
+						@change=${this.#templateInputChange}></umb-template-picker>
 				</div>
 			</umb-workspace-property-layout>
 		</uui-box>`;
