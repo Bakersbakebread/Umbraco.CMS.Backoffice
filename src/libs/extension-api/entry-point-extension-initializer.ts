@@ -3,7 +3,7 @@ import type { ManifestEntryPoint } from './types.js';
 import { hasInitExport } from './has-init-export.function.js';
 import { loadExtension } from './load-extension.function.js';
 import { UmbExtensionRegistry } from './registry/extension.registry.js';
-import { UmbElement } from '@umbraco-cms/backoffice/element-api';
+import type { UmbElement } from '@umbraco-cms/backoffice/element-api';
 
 export class UmbEntryPointExtensionInitializer extends UmbBaseController {
 

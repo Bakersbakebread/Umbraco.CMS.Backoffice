@@ -1,12 +1,12 @@
-import type { UmbControllerHost } from '../controller-api/controller-host.interface.js';
-import type { UmbController } from '../controller-api/controller.interface.js';
-import type { UmbObserverController } from '../observable-api/index.js';
+import type { UmbControllerHost } from '../controller-host.interface.js';
+import type { UmbController } from '../controller.interface.js';
+import type { UmbObserverController } from '../../observable-api/index.js';
 import type {
 	UmbContextCallback,
 	UmbContextConsumerController,
 	UmbContextProviderController,
 	UmbContextToken,
-} from '../context-api/index.js';
+} from '../../context-api/index.js';
 import type { Observable } from '@umbraco-cms/backoffice/external/rxjs';
 
 export interface UmbClassMixinInterface extends UmbControllerHost, UmbController {

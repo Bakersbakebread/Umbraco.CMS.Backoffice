@@ -1,9 +1,9 @@
 import type { Observable } from '@umbraco-cms/backoffice/external/rxjs';
 import {
-	InstallVResponseModel,
+	type InstallVResponseModel,
 	InstallResource,
-	InstallSettingsResponseModel,
-	ProblemDetails,
+	type InstallSettingsResponseModel,
+	type ProblemDetails,
 	TelemetryLevelModel,
 } from '@umbraco-cms/backoffice/backend-api';
 import { tryExecute } from '@umbraco-cms/backoffice/resources';

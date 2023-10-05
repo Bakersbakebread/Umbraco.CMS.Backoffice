@@ -1,6 +1,6 @@
-import { UmbControllerHost } from './controller-host.interface.js';
-import { UmbController } from './controller.interface.js';
-import { UmbClassMixin } from '@umbraco-cms/backoffice/class-api';
+import { UmbClassMixin } from './class-api/class.mixin.js';
+import type { UmbControllerHost } from './controller-host.interface.js';
+import type { UmbController } from './controller.interface.js';
 
 /**
  * This mixin enables a web-component to host controllers.

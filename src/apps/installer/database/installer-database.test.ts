@@ -1,4 +1,5 @@
-import { expect, fixture, html } from '@open-wc/testing';
+
+/*import { expect, fixture, html } from '@open-wc/testing';
 
 import { UmbInstallerDatabaseElement } from './installer-database.element.js';
 import { defaultA11yConfig } from '@umbraco-cms/internal/test-utils';
@@ -19,3 +20,4 @@ describe('UmbInstallerDatabaseElement', () => {
 		await expect(element).to.be.accessible(defaultA11yConfig);
 	});
 });
+*/

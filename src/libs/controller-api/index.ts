@@ -6,3 +6,5 @@ export * from './controller.interface.js';
 export * from './controller-alias.type.js';
 export * from './base-context.controller.js';
 export * from './base-context-controller.interface.js';
+export * from './class-api/index.js';
+export * from './element-api/index.js';

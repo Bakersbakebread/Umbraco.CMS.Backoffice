@@ -8,11 +8,11 @@ import type {
 import { UmbExtensionRegistry } from '../registry/extension.registry.js';
 import type { UmbExtensionCondition } from '../condition/extension-condition.interface.js';
 import {
-	UmbControllerHostElement,
+	type UmbControllerHostElement,
 	UmbControllerHostElementMixin,
 } from '../../controller-api/controller-host-element.mixin.js';
 import { UmbBaseController } from '../../controller-api/controller.class.js';
-import { UmbControllerHost } from '../../controller-api/controller-host.interface.js';
+import type { UmbControllerHost } from '../../controller-api/controller-host.interface.js';
 import { UmbBaseExtensionController } from './index.js';
 import { customElement, html } from '@umbraco-cms/backoffice/external/lit';
 import { UmbSwitchCondition } from '@umbraco-cms/backoffice/extension-registry';
@@ -22,7 +22,7 @@ export class UmbTestControllerHostElement extends UmbControllerHostElementMixin(
 
 class UmbTestExtensionController extends UmbBaseExtensionController {
 	constructor(
-		host: UmbControllerHostElement,
+		host: UmbControllerHost,
 		extensionRegistry: UmbExtensionRegistry<ManifestWithDynamicConditions>,
 		alias: string,
 		onPermissionChanged: (isPermitted: boolean) => void

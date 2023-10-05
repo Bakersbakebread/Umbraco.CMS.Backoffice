@@ -1,4 +1,4 @@
-import { UmbInstallerContext, UMB_INSTALLER_CONTEXT_TOKEN } from './installer.context.js';
+import { UmbInstallerContext } from './installer.context.js';
 import { css, CSSResultGroup, html, customElement, state } from '@umbraco-cms/backoffice/external/lit';
 import { UmbLitElement } from '@umbraco-cms/internal/lit-element';
 

@@ -11,7 +11,7 @@ if (!['dev', 'prod'].includes(mode)) {
 export default {
 	rootDir: '.',
 	files: ['./src/**/*.test.ts'],
-	nodeResolve: { exportConditions: mode === 'dev' ? ['development'] : [] },
+	nodeResolve: true,//{ exportConditions: mode === 'dev' ? ['development'] : [] },
 	plugins: [
 		esbuildPlugin({ ts: true, tsconfig: './tsconfig.json', target: 'auto', json: true }),
 		importMapsPlugin({
@@ -31,7 +31,6 @@ export default {
 						'@umbraco-cms/backoffice/external/uuid': './src/external/uuid/index.ts',
 
 						'@umbraco-cms/backoffice/backend-api': './src/external/backend-api/index.ts',
-						'@umbraco-cms/backoffice/class-api': './src/libs/class-api/index.ts',
 						'@umbraco-cms/backoffice/context-api': './src/libs/context-api/index.ts',
 						'@umbraco-cms/backoffice/controller-api': './src/libs/controller-api/index.ts',
 						'@umbraco-cms/backoffice/element-api': './src/libs/element-api/index.ts',

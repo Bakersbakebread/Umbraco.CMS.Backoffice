@@ -31,7 +31,6 @@
 			"@umbraco-cms/backoffice/external/uuid": ["src/external/uuid"],
 
 			"@umbraco-cms/backoffice/backend-api": ["src/external/backend-api"],
-			"@umbraco-cms/backoffice/class-api": ["src/libs/class-api"],
 			"@umbraco-cms/backoffice/context-api": ["src/libs/context-api"],
 			"@umbraco-cms/backoffice/controller-api": ["src/libs/controller-api"],
 			"@umbraco-cms/backoffice/element-api": ["src/libs/element-api"],

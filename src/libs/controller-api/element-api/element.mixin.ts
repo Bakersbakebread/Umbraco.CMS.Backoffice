@@ -1,17 +1,16 @@
+import { UmbControllerHostElementMixin, type UmbControllerHostElement } from '../index.js';
 import { UmbLocalizeController } from '@umbraco-cms/backoffice/localization-api';
 import type { Observable } from '@umbraco-cms/backoffice/external/rxjs';
 import type { HTMLElementConstructor } from '@umbraco-cms/backoffice/extension-api';
-import { UmbControllerHostElementMixin } from '@umbraco-cms/backoffice/controller-api';
-import type { UmbControllerHostElement } from '@umbraco-cms/backoffice/controller-api';
 import {
-	UmbContextToken,
-	UmbContextCallback,
+	type UmbContextToken,
+	type UmbContextCallback,
 	UmbContextConsumerController,
 	UmbContextProviderController,
 } from '@umbraco-cms/backoffice/context-api';
 import { ObserverCallback, UmbObserverController } from '@umbraco-cms/backoffice/observable-api';
 
-export declare class UmbElement extends UmbControllerHostElement {
+declare class UmbElementClass extends UmbControllerHostElement {
 	/**
 	 * @description Observe a RxJS source of choice.
 	 * @param {Observable<T>} source RxJS source
@@ -35,8 +34,12 @@ export declare class UmbElement extends UmbControllerHostElement {
 	): UmbContextConsumerController<BaseType, ResultType>;
 }
 
+export interface UmbElement extends UmbElementClass {
+
+}
+
 export const UmbElementMixin = <T extends HTMLElementConstructor>(superClass: T) => {
-	class UmbElementMixinClass extends UmbControllerHostElementMixin(superClass) implements UmbElement {
+	class UmbElementMixinClass extends UmbControllerHostElementMixin(superClass) implements UmbElementClass {
 		localize: UmbLocalizeController = new UmbLocalizeController(this);
 
 		/**
@@ -81,5 +84,5 @@ export const UmbElementMixin = <T extends HTMLElementConstructor>(superClass: T)
 		}
 	}
 
-	return UmbElementMixinClass as unknown as HTMLElementConstructor<UmbElement> & T;
+	return UmbElementMixinClass as unknown as HTMLElementConstructor<UmbElementClass> & T;
 };

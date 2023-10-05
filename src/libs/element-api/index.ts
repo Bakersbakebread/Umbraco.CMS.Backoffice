@@ -1,1 +1,1 @@
-export * from './element.mixin.js';
+export { UmbElementMixin, type UmbElement } from '@umbraco-cms/backoffice/controller-api';
