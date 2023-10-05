@@ -1,11 +1,11 @@
-import { type PermittedControllerType, UmbBaseExtensionsController } from './base-extensions-controller.js';
 import {
 	type ManifestBase,
 	type ManifestTypeMap,
 	type SpecificManifestTypeOrManifestBase,
 	UmbExtensionElementController,
 	type UmbExtensionRegistry,
-} from '@umbraco-cms/backoffice/extension-api';
+} from '../index.js';
+import { type PermittedControllerType, UmbBaseExtensionsController } from './base-extensions-controller.js';
 import type { UmbControllerHost } from '@umbraco-cms/backoffice/controller-api';
 
 /**

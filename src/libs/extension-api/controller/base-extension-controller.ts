@@ -1,11 +1,11 @@
 import type { UmbExtensionCondition } from '../condition/extension-condition.interface.js';
-import { UmbBaseController, type UmbControllerHost } from '@umbraco-cms/backoffice/controller-api';
 import {
 	type ManifestCondition,
 	type ManifestWithDynamicConditions,
 	type UmbExtensionRegistry,
 	createExtensionClass,
-} from '@umbraco-cms/backoffice/extension-api';
+} from '../index.js';
+import { UmbBaseController, type UmbControllerHost } from '@umbraco-cms/backoffice/controller-api';
 import { UmbObserverController } from '@umbraco-cms/backoffice/observable-api';
 
 export abstract class UmbBaseExtensionController<

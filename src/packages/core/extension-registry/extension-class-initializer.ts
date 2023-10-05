@@ -2,9 +2,9 @@ import type { ManifestTypes } from './models/index.js';
 import { umbExtensionsRegistry } from './registry.js';
 import {
 	createExtensionClass,
-	ManifestBase,
-	ManifestClass,
-	SpecificManifestTypeOrManifestBase,
+	type ManifestBase,
+	type ManifestClass,
+	type SpecificManifestTypeOrManifestBase,
 } from '@umbraco-cms/backoffice/extension-api';
 import { UmbBaseController, UmbControllerHostElement } from '@umbraco-cms/backoffice/controller-api';
 

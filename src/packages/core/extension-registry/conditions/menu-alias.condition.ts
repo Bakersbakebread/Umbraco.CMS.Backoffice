@@ -1,6 +1,6 @@
 import { UMB_MENU_CONTEXT_TOKEN } from '../../menu/menu.context.js';
 import { UmbBaseController } from '@umbraco-cms/backoffice/controller-api';
-import {
+import type {
 	ManifestCondition,
 	UmbConditionConfigBase,
 	UmbConditionControllerArguments,
