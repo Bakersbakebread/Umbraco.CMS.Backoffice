@@ -11,7 +11,7 @@ if (!['dev', 'prod'].includes(mode)) {
 export default {
 	rootDir: '.',
 	files: ['./src/**/*.test.ts'],
-	nodeResolve: true,//{ exportConditions: mode === 'dev' ? ['development'] : [] },
+	nodeResolve: { exportConditions: mode === 'dev' ? ['development'] : [] },
 	plugins: [
 		esbuildPlugin({ ts: true, tsconfig: './tsconfig.json', target: 'auto', json: true }),
 		importMapsPlugin({
