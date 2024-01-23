@@ -39,6 +39,8 @@ export class UmbDocumentTypeWorkspaceContext
 
 	readonly structure = new UmbContentTypePropertyStructureManager<EntityType>(this, this.repository);
 
+	#parentUnique: string | null = null;
+
 	#isSorting = new UmbBooleanState(undefined);
 	isSorting = this.#isSorting.asObservable();
 
@@ -62,6 +64,10 @@ export class UmbDocumentTypeWorkspaceContext
 		this.allowedTemplateIds = this.structure.ownerContentTypeObservablePart((data) => data?.allowedTemplateIds);
 		this.defaultTemplateId = this.structure.ownerContentTypeObservablePart((data) => data?.defaultTemplateId);
 		this.cleanup = this.structure.ownerContentTypeObservablePart((data) => data?.defaultTemplateId);
+	}
+
+	getParentUnique() {
+		return this.#parentUnique;
 	}
 
 	getIsSorting() {
@@ -127,12 +133,13 @@ export class UmbDocumentTypeWorkspaceContext
 	}
 
 	async create(parentUnique: string | null) {
-		const { data } = await this.structure.createScaffold(parentUnique);
+		this.#parentUnique = parentUnique;
+		const { data } = await this.structure.createScaffold();
 		if (!data) return undefined;
 
 		this.setIsNew(true);
 		this.setIsSorting(false);
-		//this.#draft.next(data);
+
 		return { data } || undefined;
 	}
 
@@ -142,7 +149,7 @@ export class UmbDocumentTypeWorkspaceContext
 
 		this.setIsNew(false);
 		this.setIsSorting(false);
-		//this.#draft.next(data);
+
 		return { data } || undefined;
 	}
 
