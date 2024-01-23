@@ -28,6 +28,8 @@ export class UmbDataTypeWorkspaceContext
 	//
 	public readonly repository: UmbDataTypeDetailRepository = new UmbDataTypeDetailRepository(this);
 
+	#parentUnique: string | null = null;
+
 	#data = new UmbObjectState<UmbDataTypeDetailModel | undefined>(undefined);
 	readonly data = this.#data.asObservable();
 	#getDataPromise?: Promise<any>;
@@ -202,7 +204,8 @@ export class UmbDataTypeWorkspaceContext
 	}
 
 	async create(parentUnique: string | null) {
-		this.#getDataPromise = this.repository.createScaffold(parentUnique);
+		this.#parentUnique = parentUnique;
+		this.#getDataPromise = this.repository.createScaffold();
 		let { data } = await this.#getDataPromise;
 		if (this.modalContext) {
 			data = { ...data, ...this.modalContext.data.preset };
@@ -212,6 +215,10 @@ export class UmbDataTypeWorkspaceContext
 		// Create and response models are different. We need to look into this.
 		this.#data.setValue(data as unknown as UmbDataTypeDetailModel);
 		return { data };
+	}
+
+	getParentUnique() {
+		return this.#parentUnique;
 	}
 
 	getData() {
@@ -280,7 +287,7 @@ export class UmbDataTypeWorkspaceContext
 		if (!this.#data.value.unique) return;
 
 		if (this.getIsNew()) {
-			await this.repository.create(this.#data.value);
+			await this.repository.create(this.#data.value, this.getParentUnique());
 		} else {
 			await this.repository.save(this.#data.value);
 		}

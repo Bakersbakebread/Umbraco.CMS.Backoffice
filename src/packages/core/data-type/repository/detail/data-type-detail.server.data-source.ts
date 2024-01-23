@@ -34,14 +34,13 @@ export class UmbDataTypeServerDataSource implements UmbDetailDataSource<UmbDataT
 	 * @return { CreateDataTypeRequestModel }
 	 * @memberof UmbDataTypeServerDataSource
 	 */
-	async createScaffold(parentUnique: string | null) {
+	async createScaffold() {
 		const data: UmbDataTypeDetailModel = {
-			entityType: UMB_DATA_TYPE_ENTITY_TYPE,
-			unique: UmbId.new(),
-			parentUnique,
-			name: '',
 			editorAlias: undefined,
 			editorUiAlias: null,
+			entityType: UMB_DATA_TYPE_ENTITY_TYPE,
+			name: '',
+			unique: UmbId.new(),
 			values: [],
 		};
 
@@ -67,7 +66,6 @@ export class UmbDataTypeServerDataSource implements UmbDetailDataSource<UmbDataT
 		const dataType: UmbDataTypeDetailModel = {
 			entityType: UMB_DATA_TYPE_ENTITY_TYPE,
 			unique: data.id,
-			parentUnique: data.parentId || null,
 			name: data.name,
 			editorAlias: data.editorAlias,
 			editorUiAlias: data.editorUiAlias || null,
@@ -83,7 +81,7 @@ export class UmbDataTypeServerDataSource implements UmbDetailDataSource<UmbDataT
 	 * @return {*}
 	 * @memberof UmbDataTypeServerDataSource
 	 */
-	async create(model: UmbDataTypeDetailModel) {
+	async create(model: UmbDataTypeDetailModel, parentUnique?: string | null) {
 		if (!model) throw new Error('Data Type is missing');
 		if (!model.unique) throw new Error('Data Type unique is missing');
 		if (!model.editorAlias) throw new Error('Property Editor Alias is missing');
@@ -91,7 +89,7 @@ export class UmbDataTypeServerDataSource implements UmbDetailDataSource<UmbDataT
 		// TODO: make data mapper to prevent errors
 		const requestBody: CreateDataTypeRequestModel = {
 			id: model.unique,
-			parentId: model.parentUnique,
+			parentId: parentUnique,
 			name: model.name,
 			editorAlias: model.editorAlias,
 			editorUiAlias: model.editorUiAlias,
