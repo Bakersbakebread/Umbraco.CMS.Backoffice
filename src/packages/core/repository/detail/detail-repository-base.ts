@@ -7,9 +7,7 @@ import { UmbContextToken } from '@umbraco-cms/backoffice/context-api';
 import { UmbDetailStore } from '@umbraco-cms/backoffice/store';
 import { UmbApi } from '@umbraco-cms/backoffice/extension-api';
 
-export abstract class UmbDetailRepositoryBase<
-		DetailModelType extends { unique: string; entityType: string; parentUnique: string | null },
-	>
+export abstract class UmbDetailRepositoryBase<DetailModelType extends { unique: string; entityType: string }>
 	extends UmbRepositoryBase
 	implements UmbDetailRepository<DetailModelType>, UmbApi
 {
@@ -45,9 +43,8 @@ export abstract class UmbDetailRepositoryBase<
 	 * @return {*}
 	 * @memberof UmbDetailRepositoryBase
 	 */
-	async createScaffold(parentUnique: string | null, preset?: Partial<DetailModelType>) {
-		if (parentUnique === undefined) throw new Error('Parent unique is missing');
-		return this.#detailSource.createScaffold(parentUnique, preset);
+	async createScaffold(preset?: Partial<DetailModelType>) {
+		return this.#detailSource.createScaffold(preset);
 	}
 
 	/**
@@ -75,11 +72,11 @@ export abstract class UmbDetailRepositoryBase<
 	 * @return {*}
 	 * @memberof UmbDetailRepositoryBase
 	 */
-	async create(data: DetailModelType) {
+	async create(data: DetailModelType, parentUnique?: string | null) {
 		if (!data) throw new Error('Data is missing');
 		await this.#init;
 
-		const { data: createdData, error } = await this.#detailSource.create(data);
+		const { data: createdData, error } = await this.#detailSource.create(data, parentUnique);
 
 		if (createdData) {
 			this.#detailStore?.append(createdData);
