@@ -34,11 +34,10 @@ export class UmbDocumentTypeDetailServerDataSource implements UmbDetailDataSourc
 	 * @return { CreateDocumentTypeRequestModel }
 	 * @memberof UmbDocumentTypeServerDataSource
 	 */
-	async createScaffold(parentUnique: string | null) {
+	async createScaffold() {
 		const data: UmbDocumentTypeDetailModel = {
 			entityType: UMB_DOCUMENT_TYPE_ENTITY_TYPE,
 			unique: UmbId.new(),
-			parentUnique,
 			name: '',
 			alias: '',
 			description: '',
@@ -85,7 +84,6 @@ export class UmbDocumentTypeDetailServerDataSource implements UmbDetailDataSourc
 		const DocumentType: UmbDocumentTypeDetailModel = {
 			entityType: UMB_DOCUMENT_TYPE_ENTITY_TYPE,
 			unique: data.id,
-			parentUnique: null, // TODO: map to parent/folder id
 			name: data.name,
 			alias: data.alias,
 			description: data.description || null,
@@ -112,7 +110,7 @@ export class UmbDocumentTypeDetailServerDataSource implements UmbDetailDataSourc
 	 * @return {*}
 	 * @memberof UmbDocumentTypeServerDataSource
 	 */
-	async create(model: UmbDocumentTypeDetailModel) {
+	async create(model: UmbDocumentTypeDetailModel, parentUnique?: string) {
 		if (!model) throw new Error('Media Type is missing');
 		if (!model.unique) throw new Error('Media Type unique is missing');
 
@@ -131,7 +129,7 @@ export class UmbDocumentTypeDetailServerDataSource implements UmbDetailDataSourc
 			allowedContentTypes: model.allowedContentTypes,
 			compositions: model.compositions,
 			id: model.unique,
-			containerId: model.parentUnique,
+			containerId: parentUnique,
 			allowedTemplateIds: model.allowedTemplateIds,
 			defaultTemplateId: model.defaultTemplateId || null,
 			cleanup: model.cleanup,
