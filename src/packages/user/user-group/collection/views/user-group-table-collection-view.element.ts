@@ -50,7 +50,7 @@ export class UmbUserGroupCollectionTableViewElement extends UmbLitElement {
 	private _tableItems: Array<UmbTableItem> = [];
 
 	@state()
-	private _selection: Array<string | null> = [];
+	private _selection: Array<string> = [];
 
 	#collectionContext?: UmbDefaultCollectionContext;
 

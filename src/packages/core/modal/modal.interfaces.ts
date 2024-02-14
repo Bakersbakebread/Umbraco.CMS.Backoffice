@@ -5,7 +5,7 @@ export interface UmbPickerModalData<TreeItemType> {
 	pickableFilter?: (item: TreeItemType) => boolean;
 }
 export interface UmbPickerModalValue {
-	selection: Array<string | null>;
+	selection: Array<string>;
 }
 
 export interface UmbTreePickerModalData<TreeItemType> extends UmbPickerModalData<TreeItemType> {

@@ -10,7 +10,7 @@ import './tree-item-base/tree-item-base.element.js';
 export type UmbTreeSelectionConfiguration = {
 	multiple?: boolean;
 	selectable?: boolean;
-	selection?: Array<string | null>;
+	selection?: Array<string>;
 };
 
 @customElement('umb-tree')

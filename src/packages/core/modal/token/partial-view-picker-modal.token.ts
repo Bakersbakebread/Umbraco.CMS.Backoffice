@@ -6,7 +6,7 @@ export interface UmbPartialViewPickerModalData {
 }
 
 export interface UmbPartialViewPickerModalValue {
-	selection: Array<string | null> | undefined;
+	selection?: Array<string>;
 }
 
 export const UMB_PARTIAL_VIEW_PICKER_MODAL_ALIAS = 'Umb.Modal.PartialViewPicker';

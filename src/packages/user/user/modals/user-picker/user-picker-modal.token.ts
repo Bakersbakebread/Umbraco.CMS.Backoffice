@@ -5,7 +5,7 @@ import { UmbModalToken } from '@umbraco-cms/backoffice/modal';
 export type UmbUserPickerModalData = UmbPickerModalData<UmbUserDetailModel>;
 
 export interface UmbUserPickerModalValue {
-	selection: Array<string | null>;
+	selection: Array<string>;
 }
 
 export const UMB_USER_PICKER_MODAL = new UmbModalToken<UmbUserPickerModalData, UmbUserPickerModalValue>(

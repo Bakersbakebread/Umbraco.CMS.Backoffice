@@ -7,7 +7,7 @@ export interface UmbLanguagePickerModalData {
 }
 
 export interface UmbLanguagePickerModalValue {
-	selection: Array<string | null>;
+	selection: Array<string>;
 }
 
 export const UMB_LANGUAGE_PICKER_MODAL = new UmbModalToken<UmbLanguagePickerModalData, UmbLanguagePickerModalValue>(

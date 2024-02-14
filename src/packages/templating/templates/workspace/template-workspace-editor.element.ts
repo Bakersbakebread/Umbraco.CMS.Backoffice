@@ -128,7 +128,7 @@ export class UmbTemplateWorkspaceEditorElement extends UmbLitElement {
 				},
 			},
 			value: {
-				selection: [this.#masterTemplateUnique],
+				selection: this.#masterTemplateUnique ? [this.#masterTemplateUnique] : [],
 			},
 		});
 
