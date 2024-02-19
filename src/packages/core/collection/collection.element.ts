@@ -1,5 +1,5 @@
 import type { UmbCollectionConfiguration, UmbCollectionContext } from './types.js';
-import { customElement, property, state } from '@umbraco-cms/backoffice/external/lit';
+import { customElement, html, property, state } from '@umbraco-cms/backoffice/external/lit';
 import { createExtensionApi, createExtensionElement } from '@umbraco-cms/backoffice/extension-api';
 import { UmbLitElement } from '@umbraco-cms/backoffice/lit-element';
 import { umbExtensionsRegistry } from '@umbraco-cms/backoffice/extension-registry';
@@ -68,7 +68,7 @@ export class UmbCollectionElement extends UmbLitElement {
 	}
 
 	render() {
-		return this._element;
+		return this._element ?? html`<p>Unable to locate collection: <code>${this.#alias}</code></p>`;
 	}
 }
 
