@@ -60,6 +60,12 @@ export class UmbCollectionViewBundleElement extends UmbLitElement {
 			'umbCollectionViewsObserver',
 		);
 	}
+
+	#onClick(event: Event) {
+		// TODO: Wire up with localStorage to save the selected view. [LK]
+		console.log('collectionView.selectedView', event);
+	}
+
 	render() {
 		if (!this._currentView) return nothing;
 		if (this._views.length <= 1) return nothing;
@@ -78,7 +84,7 @@ export class UmbCollectionViewBundleElement extends UmbLitElement {
 
 	#renderItem(view: ManifestCollectionView) {
 		return html`
-			<uui-button compact href="${this._collectionRootPathname}/${view.meta.pathName}">
+			<uui-button compact href="${this._collectionRootPathname}/${view.meta.pathName}" @click=${this.#onClick}>
 				${this.#renderItemDisplay(view)} <span class="label">${view.meta.label}</span>
 			</uui-button>
 		`;
