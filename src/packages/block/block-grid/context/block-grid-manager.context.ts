@@ -38,6 +38,9 @@ export class UmbBlockGridManagerContext<
 		const value = x?.getValueByAlias('gridColumns') as string | undefined;
 		return parseInt(value && value !== '' ? value : '12');
 	});
+	createLabel = this._editorConfiguration.asObservablePart((x) => {
+		return x?.getValueByAlias<string>('createLabel');
+	});
 
 	getMinAllowed() {
 		return this._editorConfiguration.getValue()?.getValueByAlias<UmbNumberRangeValueType>('validationLimit')?.min ?? 0;
@@ -59,9 +62,11 @@ export class UmbBlockGridManagerContext<
 	setBlockGroups(blockGroups: Array<UmbBlockTypeGroup>) {
 		this.#blockGroups.setValue(blockGroups);
 	}
+
 	getBlockGroups() {
 		return this.#blockGroups.value;
 	}
+
 	getBlockGroupName(unique: string) {
 		return this.#blockGroups.getValue().find((group) => group.key === unique)?.name;
 	}
